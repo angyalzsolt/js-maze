@@ -68,7 +68,7 @@ app.playerStartPos = ()=>{
 
 // Check if the player finished the game, if did, reset to basic
 app.playerEndPos = (endX,endY,currX,currY)=>{
-	if(Math.abs(endX-currX) < 10 && Math.abs(endY-currY) < 10){
+	if(Math.abs(endX-currX) < 15 && Math.abs(endY-currY) < 15){
 		app.resetGame();
 		app.sendMsg('Congratulations, you made it!');
 	}
@@ -257,7 +257,7 @@ app.resetGame = ()=>{
 	borderdEl = [];
 	roadEl = [];
 	clearInterval(timer);
-	clearInterval(timerAuto);
+
 	tsec = '00';
 	sec = '00';
 	min = 0;
@@ -368,8 +368,8 @@ document.getElementById('startBtn').addEventListener('click', (e)=>{
 		clearInterval(counter);
 		app.startGame();
 		isStarted = true;
-		endX = app.findWayOut().x+5;
-		endY = app.findWayOut().y+7;
+		endX = app.findWayOut().x+7;
+		endY = app.findWayOut().y+10;
 		// ctx.fillRect(355,684,15,15)
 	},5000)
 	
