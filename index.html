@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Maze</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+<div class="navbar">
+	<div class="title">
+		<span>MAZE SOLVER</span>
+	</div>
+</div>
+<div class="dashboard" id="dashb">
+	<div class="up-row">
+		<div class="left-side">
+			<h1>Welcome</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat.</p>
+		</div>
+		<div class="right-side">
+			<h3>Select a maze, then click Start</h3>
+			<a href="#playeg" title=""><button id="startBtn">Start the game</button></a>
+		</div>
+	</div>
+	
+
+	<div id="container-mazes"></div>
+	<a class="prev" onclick="showMazes(-1)">&#10094;</a>
+	<a class="next" onclick="showMazes(+1)">&#10095;</a>
+</div>
+
+<div class="playground" id="playeg">
+	<div class="container left">
+		<canvas id="canvas" width="697" height="706"></canvas>
+	</div>
+
+	<div class="container right">
+		
+		<hr>
+		<p id="messages">Set up your game above</p>
+		<i><p id="timer">0:00:00</p></i>
+		<a href="#dashb"><p id="reset-btn">Restart</p></a>
+		<button id="solution">I'm lost, show me the way out</button>
+
+	</div>
+</div>
+
+
+
+<script type="text/javascript" src="./selector.js"></script>
+<script type="text/javascript" src="./timer.js"></script>
+<script type="text/javascript" src="./index.js"></script>
+</body>
+</html>
