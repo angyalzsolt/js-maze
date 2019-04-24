@@ -40,7 +40,6 @@ app.findWayIn = ()=>{
 			let y = Math.floor((i / 4) / canvas.width);
 			let cord ={'x': x, 'y': y};
 			return cord;
-			console.log('I should not see it');
 		}
 	}
 }
@@ -74,7 +73,7 @@ app.playerEndPos = (endX,endY,currX,currY)=>{
 	}
 };
 
-// Booloean to check the player movement is allowed
+// Boolean to check the player movement is allowed
 let allowed = true;
 // Save the previously pressed button to handle the controls
 let prevKey;
@@ -83,7 +82,7 @@ app.checkPath = (direction)=>{
 	const pixel = ctx.getImageData(app.player.x-3, app.player.y-3, app.player.width+5, app.player.height+5);
 	const data = pixel.data;
 	if(data.some(x => x < 40)){
-		console.log('You can not to: '+direction);
+		console.log('You can not go to: '+direction);
 		switch(direction){
 			case 'right':
 				app.player.clear();
@@ -196,13 +195,12 @@ app.getMaze = ()=>{
 
 // Visualize the solution
 function autoMove(solArray){
-	ctx.fillStyle = 'yellow';
 	for(let i=0;i<solArray.length;i++){
 		setTimeout(function timerAuto(){
 			app.player.x = solArray[i].x;
 			app.player.y = solArray[i].y;
 			app.player.draw();
-		},i*80)
+		},i*50)
 	}
 };
 
@@ -232,7 +230,12 @@ app.startGame = ()=>{
 	// Show the player
 	app.player.draw();
 	// Start the timer
-	timerStart();
+	if(gameStyle === 'Regular'){
+		timerStart();
+	} else {
+		counterX(10);
+	}
+	
 	app.sendMsg('Good luck!');
 	window.addEventListener('keypress',handler = (e)=>{
 		if(e.charCode === 100){
@@ -355,33 +358,40 @@ app.solveMaze = ()=>{
 let isStarted = false;
 // Initialze the game
 document.getElementById('startBtn').addEventListener('click', (e)=>{
-	ctx.drawImage(img,0,0);
-	img.style.display = 'none';
-	// Analyze the maze
-	app.getMaze();
-	// Set the start pos
-	app.playerStartPos();
-	app.player.draw();
-	counterStart(5);
-	app.sendMsg('Prepare yourself');
-	setTimeout(function(){
-		clearInterval(counter);
-		app.startGame();
-		isStarted = true;
-		endX = app.findWayOut().x+7;
-		endY = app.findWayOut().y+10;
-		// ctx.fillRect(355,684,15,15)
-	},5000)
+	if(document.getElementById('mazeName').textContent.length > 0 && gameStyle.length > 0){
+		document.getElementById('error-msg').innerHTML = '';
+		document.getElementById('playeg').scrollIntoView();
+		ctx.drawImage(img,0,0);
+		img.style.display = 'none';
+		// Analyze the maze
+		app.getMaze();
+		// Set the start pos
+		app.playerStartPos();
+		app.player.draw();
+		counterStart(5);
+		app.sendMsg('Prepare yourself');
+		setTimeout(function(){
+			// clearInterval(counter);
+			app.startGame();
+			isStarted = true;
+			endX = app.findWayOut().x+7;
+			endY = app.findWayOut().y+10;
+			// ctx.fillRect(355,684,15,15)
+		},5000)
+	} else {
+		document.getElementById('error-msg').innerHTML = 'Pleas select a maze down here, you dumb ass...';
+	}
+	
 	
 });
 
-// Render the reset button
+// Reset button
 document.getElementById('reset-btn').addEventListener('click',(e)=>{
 	app.resetGame();
 	target.innerHTML = min+':'+sec+':'+tsec;
 });
 
-// Redner the solution button
+// Solution button
 document.getElementById('solution').addEventListener('click', (e)=>{
 	clearInterval(timer);
 	tsec = '00';
@@ -400,11 +410,32 @@ document.getElementById('solution').addEventListener('click', (e)=>{
 })
 
 
-// Render the selected maze
+// Add the selected maze
 const blocks = document.getElementsByClassName('maze-block');
 for(let t=0;t<blocks.length;t++){
 	document.getElementById(blocks[t].id).addEventListener('click', (e)=>{
+		for(let block of blocks){
+			block.classList.remove('selected');
+		};
+		blocks[t].classList.add('selected');
+		document.getElementById('mazeName').innerHTML = blocks[t].children[1].textContent;
 		img.src = './mazes/'+blocks[t].id;
 	});
 };
+
+
+let gameStyle = '';
+const tests = document.getElementsByClassName('timer-select');
+for(let f=0;f<tests.length;f++){
+	tests[f].addEventListener('click', (e)=>{
+		for(let z of tests){
+			z.classList.remove('active');
+		};
+		tests[f].classList.add('active');
+		gameStyle = e.target.textContent;
+	})
+}
+
+
+
 

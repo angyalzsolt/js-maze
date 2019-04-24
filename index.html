@@ -14,24 +14,37 @@
 	</div>
 </div>
 <div class="dashboard" id="dashb">
-	<div class="up-row">
-		<div class="left-side">
-			<h1>Welcome</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat.</p>
-		</div>
-		<div class="right-side">
-			<h3>Select a maze, then click Start</h3>
-			<a href="#playeg" title=""><button id="startBtn">Start the game</button></a>
-		</div>
-	</div>
 	
+		<div class="up-row">
+			<div class="left-side">
+				<h1>Welcome</h1>
+				<div id="testTarget">
+					
+				</div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat.</p>
+			</div>
+			<div class="right-side">
+				<h3>Choose a maze, set the game type  then click Start</h3>
+				<div class="maze-selector">
+					<span>Selected maze: </span><b><span id="mazeName"></span></b><br>
+				</div>
+				
+				<div class="timer-con" id="timerSelector">
+					<span class="timer-select">Regular</span><span class="timer-select">Countdown</span>
+				</div>
+				<br>
+				<button id="startBtn">Start the game</button>
+			</div>
+		</div>
+		<div id="error-msg"></div>
 
-	<div id="container-mazes"></div>
-	<a class="prev" onclick="showMazes(-1)">&#10094;</a>
-	<a class="next" onclick="showMazes(+1)">&#10095;</a>
+		<div id="container-mazes"></div>
+		<a class="prev" onclick="showMazes(-1)">&#10094;</a>
+		<a class="next" onclick="showMazes(+1)">&#10095;</a>
+	
 </div>
 
 <div class="playground" id="playeg">
